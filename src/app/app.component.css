@@ -1,0 +1,21 @@
+img.lazy { display: none; }
+
+    .icon-game { background: url('http://dantricdn.com/web_images/khcn.jpg') 0 0 no-repeat; }
+    .subnav ul li { height: 21px; }
+    .subnav a.btn-euro.event { padding: 0; width: auto; height: auto; }
+    .subnav ul a { line-height: 21px; }
+
+    .header{ margin-bottom: 0;} body{ background-position: 0 -2615px}
+    .header.tet{    background: transparent url(http://dantricdn.com/web_images/dantri_bg_tet.png) 0 0 no-repeat !important;
+    margin-top: 0;
+    height: 66px;}
+    .header.tet .logo{ background-image: none !important;}
+    .nav-wrap{background-image:url(http://dantri4.vcmedia.vn/web_images/allmenu_tet.png)}
+    .nav{background-image: url(http://dantri4.vcmedia.vn/web_images/allmenu_tet.png)}
+    .nav li,.nav li.menu-home{background-image:url(http://dantri4.vcmedia.vn/web_images/menu-saparator-tet.png)}
+    .nav li.menu-home{margin-top: 3px !important}
+    .nav a:hover span, .nav a.active span,.nav a:hover, .nav a.active{ background-image: none;background-color: rgba(255, 255, 255, 0.15);border-radius: 4px 4px 0 0}
+    .nav a b,.nav a:hover b, .nav a.active b{ background: url(http://dantri4.vcmedia.vn/web_images/home-tet-icon2.png) no-repeat top center;height: 25px;}
+    .ul2 li.active,.box4{background-image: url(http://dantri4.vcmedia.vn/web_images/tab_bg_tet.png) }
+.subnav ul li{ padding-right: 8px;}﻿.ico-newstype-vote { background-color: transparent; background-repeat: no-repeat; display: inline-block; background-image: url('/web_images/ico-newstype-poll.png'); width: 56px; height: 11px; background-size: 100%; vertical-align: middle; position: relative; top: -1px; margin-left: 0.3em; }
+.homepage .ico-newstype-vote { margin-right: 0.3em; margin-left: 0; }
