@@ -9,7 +9,7 @@ import { DisplayComponent } from './app.displayhtml';
 @NgModule({
   declarations: [
     AppComponent,
-    DisplayComponent
+    DisplayComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 <h1>{{title}}</h1>
 <input type="text" #urlInput />
 <button type="submit" (click)="getxpath2(urlInput.value)">Get</button> 
-<button type="submit" (click)="savexpath()">Save</button> 
-<display [html]="html"></display>
+<button type="submit" (click)="savexpath()">Save</button> <br/><br/>
+<iframe srcdoc="<display [html]='{{html}}'></display>" height="500" width="1300"></iframe>
