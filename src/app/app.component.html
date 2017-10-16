@@ -5,16 +5,19 @@
 	<div id="header"><h1 id="title">{{title}}</h1></div>
 	<div id="content">
 		<div id="top">
-			<div>					
+			<div id="divgetxpath">					
 				<label class="labelstyle" id="label1">URL of web page to get XPATH</label><input id="input1" type="text" #urlInput />
 				<button id="btngetxpath" class="btn btn-primary" type="submit" (click)="getxpath2(urlInput.value)">Get XPATH</button>
 			</div>
-			<div>
+			<div id="divmessage">
+				<label class="labelstyle" id="labelMessage">URL không đúng định dạng</label>
+			</div>
+			<div id="divloadxpath">
 				<label class="labelstyle" id="label2">Reload saved XPATH data at given date</label><input id="input2" type="text" #urlInput2 />
 			</div>
 		</div>
 		<div id="bottom">
-				<button id="btnsavexpath" type="submit" class="btn btn-primary" (click)="savexpath()">Save</button>
+			<button id="btnsavexpath" type="submit" class="btn btn-primary" (click)="savexpath()">Save</button>
 			<!--<div id="show"></div>-->
 			<!-- code lỗi(1) <iframe srcdoc="{{html}}"></iframe>-->
 			<iframe id="show" srcdoc=""></iframe>
