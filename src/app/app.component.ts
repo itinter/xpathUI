@@ -15,20 +15,34 @@ export class AppComponent {
     // 	 url1=url1+'.';
     //    this.http.get('http://localhost:8080/xpath/getxpath/'+url1).subscribe(data => console.log(data));
     // }
+    // savexpath(){
+    //   if(this.http.get('http://localhost:8080/xpath/save/')){
+    //       alert("lưu thành công")
+    //   }else alert("lưu không thành công");
+    // }
+
     savexpath(){
-      this.http.get('http://localhost:8080/xpath/save/').subscribe(data => console.log(data));
+      this.http.get('http://localhost:8080/xpath/save/').subscribe(data=>document.getElementById("labelMessage").innerHTML=data.text());
+      document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
+      document.getElementById("btnsavexpath").style.backgroundColor = "gray";    
     }
 
     getxpath2(url:string){      
       if(url.startsWith("http://") || url.startsWith("https://")){
-        document.getElementById("labelMessage").style.display="none";
+        document.getElementById("labelWanring").style.display="none";
         let cpHeadears = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: cpHeadears});
         this.http.post('http://localhost:8080/xpath/getxpath4',url,options).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
         document.getElementById("show").style.border="ridge";
+        document.getElementById("btnsavexpath").removeAttribute("disabled");
+        document.getElementById("btnsavexpath").style.backgroundColor = "red";
+        document.getElementById("labelMessage").innerHTML="";
       }else{
-        document.getElementById("labelMessage").style.display="block";
+        document.getElementById("labelWanring").style.display="block";
         document.getElementById("show").style.border="none";
+        document.getElementById("show").setAttribute("srcdoc","");
+        document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
+        document.getElementById("btnsavexpath").style.backgroundColor = "gray";
       }
       
 
