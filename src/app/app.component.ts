@@ -32,6 +32,7 @@ export class AppComponent {
         document.getElementById("labelWanring").style.display="none";
         let cpHeadears = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: cpHeadears});
+        //this.http.post('http://localhost:8080/xpath/getxpath4',url,options).subscribe(data => document.getElementById("show2").innerHTML=data.text());
         this.http.post('http://localhost:8080/xpath/getxpath4',url,options).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
         document.getElementById("show").style.border="ridge";
         document.getElementById("btnsavexpath").removeAttribute("disabled");
@@ -43,6 +44,7 @@ export class AppComponent {
         document.getElementById("show").setAttribute("srcdoc","");
         document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
         document.getElementById("btnsavexpath").style.backgroundColor = "gray";
+        document.getElementById("labelMessage").innerHTML="";
       }
       
 
@@ -55,4 +57,4 @@ export class AppComponent {
       // params.set('url', url);
       // this.http.get('http://localhost:8080/xpath/getxpath3', {search: params}).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
     }
-  }
+}
