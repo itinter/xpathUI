@@ -35,14 +35,15 @@ export class AppComponent {
               await this.getxpath(url).then(value=>html=value.text() );
               if(html!=""){
                 document.getElementById("show").setAttribute("srcdoc",html);
-                this.urlvalid();
+                this.urlcorrect();
               }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                this.urlnotvalid();
+                this.urlnotcorrect();
               }
   
             this.success();
           }else{
             this.fail();
+            this.urlnotcorrect();
           }
 
           // var url1 =url.replace('http://','');
@@ -73,11 +74,11 @@ export class AppComponent {
           document.getElementById("show").style.border="ridge";
           document.getElementById("labelMessage").innerHTML="";
         }
-        urlnotvalid(){
+        urlnotcorrect(){
           document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
           document.getElementById("btnsavexpath").style.backgroundColor = "gray";
         }
-        urlvalid(){
+        urlcorrect(){
           document.getElementById("btnsavexpath").removeAttribute("disabled");
           document.getElementById("btnsavexpath").style.backgroundColor = "red";
         }
