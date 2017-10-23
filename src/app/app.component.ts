@@ -35,15 +35,15 @@ export class AppComponent {
               await this.getxpath(url).then(value=>html=value.text() );
               if(html!=""){
                 document.getElementById("show").setAttribute("srcdoc",html);
-                this.urlcorrect();
+                this.success();
               }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                this.urlnotcorrect();
+                this.fail();
               }
   
-            this.success();
+            this.urlvalid();
           }else{
+            this.urlnotvalid();
             this.fail();
-            this.urlnotcorrect();
           }
 
           // var url1 =url.replace('http://','');
@@ -57,28 +57,35 @@ export class AppComponent {
 
         }
 
+        getoldxpath(url:string,date:string){
+          let params: URLSearchParams = new URLSearchParams();
+          params.set('url', url);
+          params.set('date', date);
+          this.http.get('http://localhost:8080/xpath/getoldxpath/',{search: params}).subscribe(data=>document.getElementById("show").setAttribute("srcdoc",data.text()));
+        }
+
         getxpath(url:string){
           let cpHeadears = new Headers({'Content-Type': 'application/json'});
           let options = new RequestOptions({headers: cpHeadears});
           return this.http.post('http://localhost:8080/xpath/getxpath4',url,options).toPromise();
         }
 
-        fail(){
+        urlnotvalid(){
           document.getElementById("labelWanring").style.display="block";
           document.getElementById("show").style.border="none";
           document.getElementById("show").setAttribute("srcdoc","");
           document.getElementById("labelMessage").innerHTML="";
         }
-        success(){
+        urlvalid(){
           document.getElementById("labelWanring").style.display="none";
           document.getElementById("show").style.border="ridge";
           document.getElementById("labelMessage").innerHTML="";
         }
-        urlnotcorrect(){
+        fail(){
           document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
           document.getElementById("btnsavexpath").style.backgroundColor = "gray";
         }
-        urlcorrect(){
+        success(){
           document.getElementById("btnsavexpath").removeAttribute("disabled");
           document.getElementById("btnsavexpath").style.backgroundColor = "red";
         }

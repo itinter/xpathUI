@@ -8,12 +8,13 @@
 			<div id="divgetxpath">					
 				<label class="labelstyle" id="label1">URL of web page to get XPATH</label><input id="input1" type="text" #urlInput />
 				<button id="btngetxpath" class="btn btn-primary" type="submit" (click)="showxpath(urlInput.value)">Get XPATH</button>
+				<button (click)="getoldxpath(urlInput.value,dateInput)">Get Old XPATH</button>
 			</div>
 			<div id="divmessage">
 				<label class="labelstyle" id="labelWanring">URL is not a valid</label>
 			</div>
 			<div id="divloadxpath">
-				<label class="labelstyle" id="label2">Reload saved XPATH data at given date</label><input id="input2" type="text" #urlInput2 />
+				<label class="labelstyle" id="label2">Reload saved XPATH data at given date</label><input id="input2" type="text" #dateInput />
 			</div>
 		</div>
 		<div id="bottom">
