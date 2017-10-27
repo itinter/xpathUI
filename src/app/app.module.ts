@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpModule} from '@angular/http';
-import { NgDatepickerModule } from 'ng2-datepicker';
+import { BsDatepickerModule,TabsModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -15,7 +15,8 @@ import { DisplayComponent } from './app.displayhtml';
   imports: [
     BrowserModule,
     HttpModule,
-    NgDatepickerModule
+    TabsModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

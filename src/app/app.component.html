@@ -1,30 +1,80 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> 
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-	<div id="header"><h1 id="title">{{title}}</h1></div>
-	<div id="content">
-		<div id="top">
-			<div id="divgetxpath">					
-				<label class="labelstyle" id="label1">URL of web page to get XPATH</label><input id="input1" type="text" #urlInput />
-				<button id="btngetxpath" class="btn btn-primary" type="submit" (click)="showxpath(urlInput.value)">Get XPATH</button>
-				<button (click)="getoldxpath(urlInput.value,dateInput)">Get Old XPATH</button>
-			</div>
-			<div id="divmessage">
-				<label class="labelstyle" id="labelWanring">URL is not a valid</label>
-			</div>
-			<div id="divloadxpath">
-				<label class="labelstyle" id="label2">Reload saved XPATH data at given date</label><input id="input2" type="text" #dateInput />
-			</div>
-		</div>
-		<div id="bottom">
-			<label class="labelstyle" id="labelMessage"></label>
-			<button id="btnsavexpath" type="submit" class="btn btn-primary" disabled (click)="savexpath()">Save</button>
-			<!--<div id="show"></div>-->
-			<!-- code lỗi(1) <iframe srcdoc="{{html}}"></iframe>-->
-			<iframe id="show" srcdoc=""><input type="text" name="a" width="300px" placeholder="xpath"></iframe>
-			<!--<div id="show2"></div>-->
-		</div>
+	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"><img class="logo" src="assets/images/logo.webp"/><h2 class="header">{{title}}</h2></div>
+	<div class="top">
+		<tabset>
+			<tab heading="GET XPATH">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<div>
+								<label class="labelstyle">URL of web page to get XPATH</label>
+							</div>
+						</div>
 
+
+						<div class="col-sm-9">
+							<div class="form-inline">
+								<div class="input-group col-lg-6  col-xs-10 col-sm-10 col-md-10 ipUrl">
+									<input type="text" class="form-control" #urlInput/>
+								</div>
+								<button type="submit" class="btn btn-primary" (click)="showxpath(urlInput.value)">Get XPATH</button>
+							</div>
+						</div>
+					</div>
+					<div class="alert-box error divError" id="divError"><span>error: </span>url is not valid</div>
+					<!-- <label class="lbWanring" id="labelWanring">url is not valid</label> -->
+				</div>
+			</tab>
+
+
+			<tab heading="HISTORY" (select)="changeTab()">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<div>
+								<label class="labelstyle">Reload saved XPATH data at given date</label>
+							</div>
+						</div>
+
+						<div class="col-sm-9">
+							<div class="form-inline">
+								<div class="form-group">
+									<div class="form-group">
+										<div class="input-group">
+											<input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" class="form-control" type="text">
+											<div class="input-group-btn">
+												<button class="btn btn-primary" (click)="dp.show()"><i class=" fa fa-calendar"></i></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</tab>
+		</tabset>
 	</div>
+
+	<div class="bottom">
+		
+		<div id="savexpath" class="savexpath">
+			<label class="labelstyle" id="labelMessage"></label>
+			<button type="submit" class="btn btn-primary btnsave" (click)="savexpath()">Save</button>
+		</div>
+		<!--<div id="show"></div>-->
+		<!-- code lỗi(1) <iframe srcdoc="{{html}}"></iframe>-->
+		<iframe id="show" srcdoc=""><input type="text" name="a" width="300px" placeholder="xpath"></iframe>
+		<!--<div id="show2"></div>-->
+	</div>
+
+	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar footer">© 2017 Magrabbit Company</div>
+
 </body>
