@@ -6,6 +6,7 @@ import {HttpParams} from '@angular/common/http';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TabsetComponent } from 'ngx-bootstrap';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -40,18 +41,16 @@ export class AppComponent {
           document.getElementById("btnsavexpath").style.backgroundColor = "gray";
         }
 
-        async showxpath(url:string){ 
+        async showxpath(url:string){
           if(this.checkurl(url)){
               let html="";
               await this.getxpath(url).then(value=>html=value.text() );
               if(html!=""){
                 document.getElementById("show").setAttribute("srcdoc",html);
                 this.status=true;
-                console.log(this.status);
                 this.success();
               }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                this.status=false; 
-                console.log(this.status);
+                this.status=false;
                 this.fail();
               }
             this.urlvalid();
@@ -80,7 +79,7 @@ export class AppComponent {
         //   this.http.get('http://localhost:8080/xpath/getoldxpath/',{search: params}).subscribe(data=>document.getElementById("show").setAttribute("srcdoc",data.text()));
         // }
         checkurl(url:string){
-          if(url.startsWith("http://") || url.startsWith("https://")){
+          if(url.length>0){
             return true;
           } else return false;
         }
@@ -92,7 +91,9 @@ export class AppComponent {
         }
 
         urlnotvalid(){
+          document.getElementById("url").focus();
           document.getElementById("divError").style.display="block";
+          document.getElementById("url").style.borderColor="red";
           document.getElementById("show").style.border="none";
           document.getElementById("show").setAttribute("srcdoc","");
           document.getElementById("labelMessage").innerHTML="";
@@ -100,7 +101,6 @@ export class AppComponent {
         }
         urlvalid(){
           document.getElementById("show").style.background="white";
-          document.getElementById("divError").style.display="none";
           document.getElementById("show").style.border="ridge";
           document.getElementById("labelMessage").innerHTML="";
         }
@@ -117,4 +117,32 @@ export class AppComponent {
             alert("ban chua luu");
           }
         }
-      }
+
+
+        validate(url:string)
+        {
+          var pattern = new RegExp('^((https?:)?\\/\\/)'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+              '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+          if(url!=""){
+            if(pattern.test(url)) {
+               document.getElementById('btngetxpath').removeAttribute("disabled");
+               document.getElementById("divError").style.display="none";
+               document.getElementById("url").style.borderColor="green";
+            } else{
+               document.getElementById("divError").innerText="URL is not valid!";
+               document.getElementById('btngetxpath').setAttribute("disabled","disabled");
+               document.getElementById("divError").style.display="block";
+               document.getElementById("url").style.borderColor="red";
+               }
+           } else{
+              document.getElementById('btngetxpath').setAttribute("disabled","disabled");
+              document.getElementById("divError").style.display="block";
+              document.getElementById("divError").innerText="URL is required!";
+              document.getElementById("url").style.borderColor="red";
+             }
+        }
+  }

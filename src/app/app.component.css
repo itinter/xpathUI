@@ -45,7 +45,9 @@ body{
     margin-left: 350px !important;
     clear: right;
     display: none;
+    color: red;
     width: 300px;
+    margin-bottom: 10px;
 }
 .labelstyle{
     padding-top: 10px;
@@ -97,17 +99,6 @@ body{
 .footer{
     padding-top: 10px;
     text-align: center;
-}
-.alert-box {
-    color: #555;
-    font-family: Tahoma, Geneva, Arial, sans-serif;
-    font-size: 11px;
-    padding: 10px 10px 10px 36px;
-    margin: 10px;
-}
-.alert-box span {
-    font-weight: bold;
-    text-transform: uppercase;
 }
 .error {
     background: #ffecec url('../assets/images/error.png') no-repeat 10px 50%;
