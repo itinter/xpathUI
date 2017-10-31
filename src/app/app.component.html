@@ -1,8 +1,8 @@
 <body>
 	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"><img class="logo" src="assets/images/logo.webp"/><h2 class="header">{{title}}</h2></div>
 	<div class="top">
-		<tabset>
-			<tab heading="GET XPATH">
+		<tabset #staticTabs>
+			<tab heading="GET XPATH" (deselect)="changeTab()">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
@@ -27,7 +27,7 @@
 			</tab>
 
 
-			<tab heading="HISTORY" (select)="changeTab()">
+			<tab heading="HISTORY">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
@@ -72,5 +72,24 @@
 	</div>
 
 	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar footer">© 2017 Magrabbit Company</div>
+
+	<!-- <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					<button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title pull-left">"You have not saved your data. Do you want to to leave this tab?"</h4>
+				</div>
+				<div class="modal-body">
+					<button class="btn btn-primary" (click)="modal.hide()">Ok</button>
+					<button class="btn btn-primary" (click)="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
 
 </body>

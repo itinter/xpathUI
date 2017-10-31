@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import {HttpParams} from '@angular/common/http';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TabsetComponent } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class AppComponent {
   status:boolean = false;
   colorTheme = 'theme-dark-blue';
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {containerClass: this.colorTheme});
- 
+  @ViewChild(ModalDirective) public modal: ModalDirective;
+  @ViewChild('staticTabs') staticTabs: TabsetComponent;
   
   // getxpath(url:string){
     // 	 var url1 =url.replace('http://','');
@@ -114,10 +116,14 @@ export class AppComponent {
 
         changeTab(){
           if(this.status){
-            alert("ban chua luu");
+            this.modal.show();
           }
         }
 
+        cancel(){
+          this.staticTabs.tabs[0].active = true;
+          this.modal.hide();
+        }
 
         validate(url:string)
         {
