@@ -24,10 +24,7 @@
 					<div class="divError" id="divError">URL is required!</div>
 					<!-- <label class="lbWanring" id="labelWanring">url is not valid</label> -->
 				</div>
-			</tab>
-
-
-			<tab heading="HISTORY">
+				
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
@@ -41,9 +38,38 @@
 								<div class="form-group">
 									<div class="form-group">
 										<div class="input-group">
-											<input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" class="form-control" type="text">
+											<input bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" [(bsValue)]="bsValue" class="form-control" type="text">
 											<div class="input-group-btn">
 												<button class="btn btn-primary" (click)="dp.show()"><i class=" fa fa-calendar"></i></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</tab>
+
+
+			<tab heading="HISTORY" disabled="true">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<div>
+								<label class="labelstyle">Reload saved XPATH data at given date</label>
+							</div>
+						</div>
+
+						<div class="col-sm-9">
+							<div class="form-inline">
+								<div class="form-group">
+									<div class="form-group">
+										<div class="input-group">
+											<input bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" class="form-control" type="text">
+											<div class="input-group-btn">
+												<button class="btn btn-primary" (click)="dp2.show()"><i class=" fa fa-calendar"></i></button>
 											</div>
 										</div>
 									</div>
@@ -62,7 +88,9 @@
 	<div class="bottom">
 		
 		<div id="savexpath" class="savexpath">
-			<label class="labelstyle" id="labelMessage"></label>
+			<div class="alert alert-success fade" role="alert" id="alertss">
+  				<strong id="labelMessage"></strong>
+			</div>
 			<button type="submit" class="btn btn-primary btnsave" (click)="savexpath()">Save</button>
 		</div>
 		<!--<div id="show"></div>-->
@@ -73,23 +101,13 @@
 
 	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar footer">© 2017 Magrabbit Company</div>
 
-	<!-- <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
+	<div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
 	aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
-				<div class="modal-header">
-					
-					<button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title pull-left">"You have not saved your data. Do you want to to leave this tab?"</h4>
-				</div>
-				<div class="modal-body">
-					<button class="btn btn-primary" (click)="modal.hide()">Ok</button>
-					<button class="btn btn-primary" (click)="cancel()">Cancel</button>
-				</div>
+				<img class='loading' src='assets/images/loading_apple.gif' alt='loading'/>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 </body>

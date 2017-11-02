@@ -17,10 +17,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 export class AppComponent {
 	constructor(private http:Http){}
   title = 'Welcome to XPATH Getting Application!';
-  date:Date;
-  status:boolean = false;
-  colorTheme = 'theme-dark-blue';
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {containerClass: this.colorTheme});
+  bsValue: Date;
+  //status:boolean = false;
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {containerClass: 'theme-dark-blue'});
   @ViewChild(ModalDirective) public modal: ModalDirective;
   @ViewChild('staticTabs') staticTabs: TabsetComponent;
   
@@ -35,33 +34,41 @@ export class AppComponent {
         //   }else alert("lưu không thành công");
         // }
 
-        savexpath(){
-          this.status=false;
-          console.log(this.status);
-          this.http.get('http://localhost:8080/xpath/save/').subscribe(data=>document.getElementById("labelMessage").innerHTML=data.text());
-          document.getElementById("btnsavexpath").setAttribute("disabled","disabled");
-          document.getElementById("btnsavexpath").style.backgroundColor = "gray";
+        async savexpath(){
+          //this.status=false;
+          await this.save().then(data=>document.getElementById("labelMessage").innerHTML=data.text());
+          document.getElementById("alertss").setAttribute("class", "alert alert-success show");
+          setTimeout(function(){
+            document.getElementById("alertss").setAttribute("class", "alert alert-success fade")}, 5000);
         }
 
         async showxpath(url:string){
-          if(this.checkurl(url)){
+            if(this.checkurl(url)){
+              this.modal.show();
               let html="";
-              await this.getxpath(url).then(value=>html=value.text() );
+              //document.getElementById("show").setAttribute("srcdoc","<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><h2 style='text-align:center'></h2>");
+              if(!this.bsValue){
+                await this.getxpath(url).then(value=>html=value.text() );
+              }else{
+                console.log(this.bsValue.toString())
+                await this.getoldxpath(url,this.bsValue).then(value=>html=value.text() );
+              }
               if(html!=""){
                 document.getElementById("show").setAttribute("srcdoc",html);
-                this.status=true;
+                //this.status=true;
                 this.success();
               }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                this.status=false;
+                //this.status=false;
                 this.fail();
               }
-            this.urlvalid();
-          }else{
-            this.status=false; 
-            console.log(this.status);
-            this.urlnotvalid();
-            this.fail();
-          }
+              this.modal.hide();
+              this.urlvalid();
+            }else{
+              //this.status=false; 
+              this.urlnotvalid();
+              this.fail();
+            }
+          
 
           // var url1 =url.replace('http://','');
           // var url1 =url.replace('https://','');
@@ -74,22 +81,27 @@ export class AppComponent {
 
         }
 
-        // getoldxpath(url:string,date:string){
-        //   let params: URLSearchParams = new URLSearchParams();
-        //   params.set('url', url);
-        //   params.set('date', date);
-        //   this.http.get('http://localhost:8080/xpath/getoldxpath/',{search: params}).subscribe(data=>document.getElementById("show").setAttribute("srcdoc",data.text()));
-        // }
+        getoldxpath(url:string,date:Date){
+          let params: URLSearchParams = new URLSearchParams();
+          params.set('url', url);
+          params.set('date', date.toString());
+          return this.http.get('http://localhost:8080/xpath/getoldxpath/',{search: params}).toPromise();
+        }
+
         checkurl(url:string){
           if(url.length>0){
             return true;
           } else return false;
         }
 
-        getxpath(url:string){ 
+        getxpath(url:string){
           let cpHeadears = new Headers({'Content-Type': 'application/json'});
           let options = new RequestOptions({headers: cpHeadears});
           return this.http.post('http://localhost:8080/xpath/getxpath4',url,options).toPromise();
+        }
+
+        save(){
+          return this.http.get('http://localhost:8080/xpath/save/').toPromise();
         }
 
         urlnotvalid(){
@@ -114,16 +126,16 @@ export class AppComponent {
           document.getElementById("savexpath").style.display="inline";
         }
 
-        changeTab(){
-          if(this.status){
-            this.modal.show();
-          }
-        }
+        // changeTab(){
+        //   if(this.status){
+        //     this.modal.show();
+        //   }
+        // }
 
-        cancel(){
-          this.staticTabs.tabs[0].active = true;
-          this.modal.hide();
-        }
+        // cancel(){
+        //   this.staticTabs.tabs[0].active = true;
+        //   this.modal.hide();
+        // }
 
         validate(url:string)
         {
