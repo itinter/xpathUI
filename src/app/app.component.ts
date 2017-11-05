@@ -44,22 +44,20 @@ export class AppComponent {
 
         async showxpath(url:string){
             if(this.checkurl(url)){
+              if(!url.startsWith("http://") && !url.startsWith("https://")){
+                url = "http://" + url;
+              }
               this.modal.show();
               let html="";
-              //document.getElementById("show").setAttribute("srcdoc","<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><h2 style='text-align:center'></h2>");
               if(!this.bsValue){
                 await this.getxpath(url).then(value=>html=value.text() );
+                this.displayhtml(html);
               }else{
                 console.log(this.bsValue.toString())
                 await this.getoldxpath(url,this.bsValue).then(value=>html=value.text() );
-              }
-              if(html!=""){
-                document.getElementById("show").setAttribute("srcdoc",html);
-                //this.status=true;
-                this.success();
-              }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                //this.status=false;
-                this.fail();
+                this.displayhtml(html);
+                document.getElementById("savexpath").style.display="none";
+
               }
               this.modal.hide();
               this.urlvalid();
@@ -79,6 +77,17 @@ export class AppComponent {
           // params.set('url', url);
           // this.http.get('http://localhost:8080/xpath/getxpath3', {search: params}).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
 
+        }
+
+        displayhtml(html:string){
+          if(html!=""){
+                document.getElementById("show").setAttribute("srcdoc",html);
+                //this.status=true;
+                this.success();
+              }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
+                //this.status=false;
+                this.fail();
+              }
         }
 
         getoldxpath(url:string,date:Date){
@@ -145,8 +154,13 @@ export class AppComponent {
               '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
               '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
               '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+          var pattern2 = new RegExp('((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+              '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i');
           if(url!=""){
-            if(pattern.test(url)) {
+            if(pattern.test(url) || pattern2.test(url)) {
                document.getElementById('btngetxpath').removeAttribute("disabled");
                document.getElementById("divError").style.display="none";
                document.getElementById("url").style.borderColor="green";
