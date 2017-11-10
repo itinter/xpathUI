@@ -5,12 +5,10 @@ import { BsDatepickerModule,TabsModule,ModalModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
-import { DisplayComponent } from './app.displayhtml';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DisplayComponent,
   ],
   imports: [
     BrowserModule,
