@@ -18,24 +18,13 @@ export class AppComponent {
 	constructor(private http:Http){}
   title = 'Welcome to XPATH Getting Application!';
   bsValue: Date;
-  //status:boolean = false;
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {containerClass: 'theme-dark-blue'});
   @ViewChild(ModalDirective) public modal: ModalDirective;
   @ViewChild('staticTabs') staticTabs: TabsetComponent;
   
-  // getxpath(url:string){
-    // 	 var url1 =url.replace('http://','');
-    // 	 url1=url1+'.';
-    //    this.http.get('http://localhost:8080/xpath/getxpath/'+url1).subscribe(data => console.log(data));
-    // }
-    // savexpath(){
-      //   if(this.http.get('http://localhost:8080/xpath/save/')){
-        //       alert("lưu thành công")
-        //   }else alert("lưu không thành công");
-        // }
+
 
         async savexpath(){
-          //this.status=false;
           await this.save().then(data=>document.getElementById("labelMessage").innerHTML=data.text());
           document.getElementById("alertss").setAttribute("class", "alert alert-success show");
           setTimeout(function(){
@@ -62,30 +51,18 @@ export class AppComponent {
               this.modal.hide();
               this.urlvalid();
             }else{
-              //this.status=false; 
               this.urlnotvalid();
               this.fail();
             }
-          
-
-          // var url1 =url.replace('http://','');
-          // var url1 =url.replace('https://','');
-          // url1=url1+'.';    
-          //code lỗi(1) this.http.get('http://localhost:8080/xpath/getxpath2/'+url1).subscribe(data => this.html=data.text());
-          //this.http.get('http://localhost:8080/xpath/getxpath2/'+url1).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
-          // let params: URLSearchParams = new URLSearchParams();
-          // params.set('url', url);
-          // this.http.get('http://localhost:8080/xpath/getxpath3', {search: params}).subscribe(data => document.getElementById("show").setAttribute("srcdoc",data.text()));
+        
 
         }
 
         displayhtml(html:string){
           if(html!=""){
                 document.getElementById("show").setAttribute("srcdoc",html);
-                //this.status=true;
                 this.success();
               }else {document.getElementById("show").setAttribute("srcdoc","<h1>Error 404: Not Found<h1>");
-                //this.status=false;
                 this.fail();
               }
         }
@@ -134,18 +111,7 @@ export class AppComponent {
         success(){
           document.getElementById("savexpath").style.display="inline";
         }
-
-        // changeTab(){
-        //   if(this.status){
-        //     this.modal.show();
-        //   }
-        // }
-
-        // cancel(){
-        //   this.staticTabs.tabs[0].active = true;
-        //   this.modal.hide();
-        // }
-
+        
         validate(url:string)
         {
           var pattern = new RegExp('^((https?:)?\\/\\/)'+ // protocol
