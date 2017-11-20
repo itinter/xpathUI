@@ -29,6 +29,8 @@ export class AppComponent {
           document.getElementById("alertss").setAttribute("class", "alert alert-success show");
           setTimeout(function(){
             document.getElementById("alertss").setAttribute("class", "alert alert-success fade")}, 5000);
+          setTimeout(function(){
+            document.getElementById("savexpath").style.display="none";}, 6000);
         }
 
         async showxpath(url:string){
