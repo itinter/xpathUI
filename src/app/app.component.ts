@@ -36,6 +36,9 @@ export class AppComponent {
               if(!url.startsWith("http://") && !url.startsWith("https://")){
                 url = "http://" + url;
               }
+              if(url.endsWith("/")){
+                url = url.substring(0, url.length - 1);
+              }
               this.modal.show();
               let html="";
               if(!this.bsValue){
@@ -142,5 +145,37 @@ export class AppComponent {
               document.getElementById("divError").innerText="URL is required!";
               document.getElementById("url").style.borderColor="red";
              }
+        }
+
+         async showxpath2(url:string,content:string){
+           console.log(url);
+           console.log(content);
+            if(this.checkurl(url)){
+              if(!url.startsWith("http://") && !url.startsWith("https://")){
+                url = "http://" + url;
+              }
+              if(url.endsWith("/")){
+                url = url.substring(0, url.length - 1);
+              }
+              this.modal.show();
+              let html="";
+              await this.getxpathoff(url,content).then(value=>html=value.text() );  
+              this.displayhtml(html);
+              this.modal.hide();
+              this.urlvalid();
+            }else{
+              this.urlnotvalid();
+              this.fail();
+            }
+        }
+
+        getxpathoff(url:string,content:string){
+          let cpHeadears = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+          let options = new RequestOptions({headers: cpHeadears});
+          let urlSearchParams = new URLSearchParams();
+          urlSearchParams.append('url', url);
+          urlSearchParams.append('content', content);
+          let body = urlSearchParams.toString()
+          return this.http.post('http://localhost:8080/xpath/getxpath5',body,options).toPromise();
         }
   }

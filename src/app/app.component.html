@@ -1,8 +1,8 @@
 <body>
 	<div class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"><img class="logo" src="assets/images/logo.webp"/><h2 class="header">{{title}}</h2></div>
 	<div class="top">
-		<!-- <tabset #staticTabs> -->
-			<!-- <tab heading="GET XPATH" (deselect)="changeTab()"> -->
+		<tabset #staticTabs>
+			<tab heading="GET XPATH FROM URL">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
@@ -17,7 +17,7 @@
 								<div class="input-group col-lg-6  col-xs-10 col-sm-10 col-md-10 ipUrl">
 									<input type="text" id="url" class="form-control" (keyup)="validate(urlInput.value)" #urlInput/>
 								</div>
-								<button type="submit" id="btngetxpath" class="btn btn-primary" (click)="showxpath(urlInput.value)">Get XPATH</button>
+								<button type="button" id="btngetxpath" class="btn btn-primary" (click)="showxpath(urlInput.value)">Get XPATH</button>
 							</div>
 						</div>
 					</div>
@@ -49,37 +49,47 @@
 					</div>
 
 				</div>
-			<!-- </tab> -->
+			</tab> 
 
 
-			<!-- <tab heading="HISTORY" disabled="true">
+			<tab heading="GET XPATH FROM CONTENT WEBPAGE">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
 							<div>
-								<label class="labelstyle">Reload saved XPATH data at given date</label>
+								<label class="labelstyle">URL of web page to get XPATH</label>
 							</div>
 						</div>
 
+
 						<div class="col-sm-9">
 							<div class="form-inline">
-								<div class="form-group">
-									<div class="form-group">
-										<div class="input-group">
-											<input bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" class="form-control" type="text">
-											<div class="input-group-btn">
-												<button class="btn btn-primary" (click)="dp2.show()"><i class=" fa fa-calendar"></i></button>
-											</div>
-										</div>
-									</div>
+								<div class="input-group col-lg-6  col-xs-10 col-sm-10 col-md-10 ipUrl">
+									<input type="text" id="url" class="form-control" (keyup)="validate(urlInput2.value)" #urlInput2/>
 								</div>
+								<button type="button" id="btngetxpath2" class="btn btn-primary" (click)="showxpath2(urlInput2.value,contentInput.value)">Get XPATH</button>
 							</div>
+						</div>
+					</div>
+					<div class="divError" id="divError">URL is required!</div>
+				</div>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<div>
+								<label class="labelstyle">Content of web page to get XPATH</label>
+							</div>
+						</div>
+
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="4" cols="50" #contentInput></textarea>
 						</div>
 					</div>
 
 				</div>
-			</tab> -->
-		<!-- </tabset> -->
+			</tab>
+		</tabset>
 	</div>
 
 
