@@ -26,7 +26,7 @@ export class AppComponent {
 
         async savexpath(){
           await this.save().then(data=>document.getElementById("labelMessage").innerHTML=data.text());
-          document.getElementById("alertss").setAttribute("class", "alert alert-success show text-center");
+          document.getElementById("alertss").setAttribute("class", "alert alert-success show");
           setTimeout(function(){
             document.getElementById("alertss").setAttribute("class", "alert alert-success fade")}, 5000);
           setTimeout(function(){
