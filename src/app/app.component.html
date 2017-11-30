@@ -65,13 +65,13 @@
 						<div class="col-sm-9">
 							<div class="form-inline">
 								<div class="input-group col-lg-6  col-xs-8 col-sm-8 col-md-8 ipUrl">
-									<input type="text" id="url" class="form-control" (keyup)="validate(urlInput2.value)" #urlInput2/>
+									<input type="text" id="url2" class="form-control" (keyup)="validate2(urlInput2.value,contentInput.value)" #urlInput2/>
 								</div>
 								<button type="button" id="btngetxpath2" class="btn btn-primary" (click)="showxpath2(urlInput2.value,contentInput.value)">Get XPATH</button>
 							</div>
 						</div>
 					</div>
-					<div class="divError" id="divError">URL is required!</div>
+					<div class="divError" id="divError1">URL is required!</div>
 				</div>
 				
 				<div class="container">
@@ -83,10 +83,10 @@
 						</div>
 
 						<div class="col-sm-8">
-							<textarea class="form-control" rows="4" cols="50" #contentInput></textarea>
+							<textarea class="form-control" id="content" rows="4" cols="50" (keyup)="validate2(urlInput2.value,contentInput.value)"  #contentInput></textarea>
 						</div>
 					</div>
-
+					<div class="divError" id="divError2">Content is required!</div>
 				</div>
 			</tab>
 		</tabset>

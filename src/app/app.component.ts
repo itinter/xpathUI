@@ -34,7 +34,7 @@ export class AppComponent {
         }
 
         async showxpath(url:string){
-            if(this.checkurl(url)){
+            if(this.checkinput(url)){
               if(!url.startsWith("http://") && !url.startsWith("https://")){
                 url = "http://" + url;
               }
@@ -79,8 +79,8 @@ export class AppComponent {
           return this.http.get('http://localhost:8080/xpath/getoldxpath/',{search: params}).toPromise();
         }
 
-        checkurl(url:string){
-          if(url.length>0){
+        checkinput(input:string){
+          if(input.length>0){
             return true;
           } else return false;
         }
@@ -99,6 +99,15 @@ export class AppComponent {
           document.getElementById("url").focus();
           document.getElementById("divError").style.display="block";
           document.getElementById("url").style.borderColor="red";
+          document.getElementById("show").style.border="none";
+          document.getElementById("show").setAttribute("srcdoc","");
+          document.getElementById("labelMessage").innerHTML="";
+          document.getElementById("show").style.background="#f0f0f0";
+        }
+        urlnotvalid2(){
+          document.getElementById("url2").focus();
+          document.getElementById("divError1").style.display="block";
+          document.getElementById("url2").style.borderColor="red";
           document.getElementById("show").style.border="none";
           document.getElementById("show").setAttribute("srcdoc","");
           document.getElementById("labelMessage").innerHTML="";
@@ -149,24 +158,68 @@ export class AppComponent {
              }
         }
 
+        validate2(url:string,content:string)
+        {
+          var pattern = new RegExp('^((https?:)?\\/\\/)'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+              '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+          var pattern2 = new RegExp('((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+              '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i');
+          if(url!=""){
+            if(pattern.test(url) || pattern2.test(url)) {
+               document.getElementById("divError1").style.display="none";
+               document.getElementById("url2").style.borderColor="green";
+               if(content!=""){
+                 document.getElementById('btngetxpath2').removeAttribute("disabled");
+                 document.getElementById("divError2").style.display="none";
+                 document.getElementById("content").style.borderColor="green";
+               } else{
+                  document.getElementById('btngetxpath2').setAttribute("disabled","disabled");
+                  document.getElementById("divError2").style.display="block";
+                  document.getElementById("content").style.borderColor="red";
+                }
+            } else{
+               document.getElementById("divError1").innerText="URL is not valid!";
+               document.getElementById('btngetxpath2').setAttribute("disabled","disabled");
+               document.getElementById("divError1").style.display="block";
+               document.getElementById("url2").style.borderColor="red";
+               }
+           } else{
+              document.getElementById('btngetxpath2').setAttribute("disabled","disabled");
+              document.getElementById("divError1").style.display="block";
+              document.getElementById("divError1").innerText="URL is required!";
+              document.getElementById("url2").style.borderColor="red";
+             }
+        }
+
          async showxpath2(url:string,content:string){
-           console.log(url);
-           console.log(content);
-            if(this.checkurl(url)){
-              if(!url.startsWith("http://") && !url.startsWith("https://")){
-                url = "http://" + url;
+            if(this.checkinput(url)){
+              if(this.checkinput(content)){
+                document.getElementById("divError2").style.display="none";
+                if(!url.startsWith("http://") && !url.startsWith("https://")){
+                  url = "http://" + url;
+                }
+                if(url.endsWith("/")){
+                  url = url.substring(0, url.length - 1);
+                }
+                this.modal.show();
+                let html="";
+                await this.getxpathoff(url,content).then(value=>html=value.text() );  
+                this.displayhtml(html);
+                this.modal.hide();
+                this.urlvalid();
+              } else{
+                document.getElementById("divError2").style.display="block";
+                this.fail();
               }
-              if(url.endsWith("/")){
-                url = url.substring(0, url.length - 1);
-              }
-              this.modal.show();
-              let html="";
-              await this.getxpathoff(url,content).then(value=>html=value.text() );  
-              this.displayhtml(html);
-              this.modal.hide();
-              this.urlvalid();
             }else{
-              this.urlnotvalid();
+              this.urlnotvalid2();
               this.fail();
             }
         }
