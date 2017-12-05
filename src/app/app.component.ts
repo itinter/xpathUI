@@ -210,7 +210,7 @@ export class AppComponent {
                 }
                 this.modal.show();
                 let html="";
-                await this.getxpathoff(url,content).then(value=>html=value.text() );  
+                await this.getxpath2(url,content).then(value=>html=value.text() );  
                 this.displayhtml(html);
                 this.modal.hide();
                 this.urlvalid();
@@ -224,7 +224,7 @@ export class AppComponent {
             }
         }
 
-        getxpathoff(url:string,content:string){
+        getxpath2(url:string,content:string){
           let cpHeadears = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
           let options = new RequestOptions({headers: cpHeadears});
           let urlSearchParams = new URLSearchParams();
